@@ -22,6 +22,7 @@ class PusherTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
-        $pusher = new Pusher('authkey', 'secret', 'appid');
+        $pusher = new Pusher('app_id', 'key', 'secret');
+        $pusher['channel']->trigger('wtf');
     }
 }

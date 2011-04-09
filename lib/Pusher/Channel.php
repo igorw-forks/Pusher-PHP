@@ -16,14 +16,17 @@ namespace Pusher;
  */
 class Channel
 {
+    private $name;
     private $connection;
     
     public function __construct($name, Connection $connection)
     {
-        $this->connection = $connection,
+        $this->name = $name;
+        $this->connection = $connection;
     }
     
-    public function trigger($eventName, $data, $socketId = null)
+    public function trigger($eventName, $data = null, $socketId = null)
     {
+        $this->connection->trigger($this->name, $eventName, $data, $socketId);
     }
 }
