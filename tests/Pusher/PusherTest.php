@@ -11,7 +11,7 @@
 
 namespace Pusher\Tests;
 
-use Pusher;
+use Pusher\Pusher;
 
 /**
  * Pusher test cases.
