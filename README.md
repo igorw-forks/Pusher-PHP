@@ -87,7 +87,13 @@ Next, create the following in presence_auth.php:
     ?>
 
 Note: this assumes that you store your users in a table called `users` and that those users have a `name` column. It also assumes that you have a login mechanism that stores the `user_id` of the logged in user in the session.
-  
+
+Contributors
+------------
+
+- Paul44 (http://github.com/Paul44)
+- Ben Pickles (http://github.com/benpickles)
+- Mastercoding (http://www.mastercoding.nl)
 
 License
 -------

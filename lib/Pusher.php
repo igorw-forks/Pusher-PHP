@@ -1,26 +1,19 @@
 <?php
 
-/* 
-		Pusher PHP Library
-	/////////////////////////////////
-	This was a very simple PHP library to the Pusher API.
+/*
+ * This file is part of the Pusher-PHP library.
+ *
+ * (c) Squeeks <squeek@cpan.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-		$pusher = new Pusher(APIKEY, SECRET, APP_ID, CHANNEL, [Debug: true/false, HOST, PORT]);
-		$pusher->trigger('my_event', 'test_channel', [socket_id, Debug: true/false]);
-		$pusher->socket_auth('socket_id');
-
-	Copyright 2010, Squeeks. Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
-
-	Contrbutors:
-		+ Paul44 (http://github.com/Paul44)
-		+ Ben Pickles (http://github.com/benpickles)
-		+ Mastercoding (http://www.mastercoding.nl)
-
-*/
-
+/**
+ * Main pusher class
+ */
 class Pusher
 {
-
 	private $settings = array ();
 
 	/**
