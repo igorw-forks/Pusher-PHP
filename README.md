@@ -84,7 +84,6 @@ Next, create the following in presence_auth.php:
     $pusher = new Pusher($key, $secret, $app_id);
     $presence_data = array('name' => $user['name']);
     echo $pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], $user['id'], $presence_data);
-    ?>
 
 Note: this assumes that you store your users in a table called `users` and that those users have a `name` column. It also assumes that you have a login mechanism that stores the `user_id` of the logged in user in the session.
 
