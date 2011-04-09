@@ -1,26 +1,15 @@
-Pusher PHP Library
-==================
+# Pusher PHP Library
 
 This is a very simple PHP library to the Pusher API (http://pusherapp.com).
 Using it is easy as pie:
 
-    require('Pusher.php');
+    require('pusher/autoload.php');
 
-    $pusher = new Pusher($key, $secret, $app_id);
-    $pusher->trigger('my-channel', 'my_event', 'hello world');
+    $pusher = new Pusher($app_id, $key, $secret);
+    $pusher['my-channel']->trigger('my_event', 'hello world');
 
+## Arrays
 
-If you prefer to use the Singleton pattern usage is similiar, but like this:
-
-    require('Pusher.php');
-    $pusher = PusherInstance::get_pusher();
-
-    $pusher->trigger('my-channel', 'my_event', 'hello world');
-
-Note: You need to set your API information in Pusher.php
-
-Arrays
-------
 Objects are automatically converted to JSON format:
 
     $array['name'] = 'joe';
@@ -32,38 +21,25 @@ The output of this will be:
 
     "{'name': 'joe', 'message_count': 23}"
 
-Debugging
----------
-You can either turn on debugging by setting the third argument like so, to true:
+## Socket id
 
-    $pusher->trigger('my-channel', 'event', 'data', true)
-
-or with all requests:
-
-    $pusher = new Pusher($key, $secret, $app_id, true);
-
-On failed requests, this will return the server's response, instead of false.
-
-Socket id
----------
 In order to avoid duplicates you can optionally specify the sender's socket id while triggering an event (http://pusherapp.com/docs/duplicates):
 
     $pusher->trigger('my-channel','event','data','socket_id');
 
-Private channels
-----------------
+## Private channels
+
 To authorise your users to access private channels on Pusher, you can use the socket_auth function:
 
     $pusher->socket_auth('my-channel','socket_id');
 
-Presence channels
------------------
+## Presence channels
+
 Using presence channels is similar to private channels, but you can specify extra data to identify that particular user:
 
     $pusher->presence_auth('my-channel','socket_id', 'user_id', 'user_info');
 
-Presence example
-----------------
+## Presence example
 
 First set this variable in your JS app:
 
@@ -87,14 +63,12 @@ Next, create the following in presence_auth.php:
 
 Note: this assumes that you store your users in a table called `users` and that those users have a `name` column. It also assumes that you have a login mechanism that stores the `user_id` of the logged in user in the session.
 
-Contributors
-------------
+## Contributors
 
 - Paul44 (http://github.com/Paul44)
 - Ben Pickles (http://github.com/benpickles)
 - Mastercoding (http://www.mastercoding.nl)
 
-License
--------
-Copyright 2010, Squeeks. Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php 
+## License
 
+Pusher-PHP is licensed under the MIT license.
