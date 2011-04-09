@@ -20,9 +20,16 @@ use Pusher\Pusher;
  */
 class PusherTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        if (!isset($_SERVER['PUSHER_APP_ID']) || !isset($_SERVER['PUSHER_KEY']) || !isset($_SERVER['PUSHER_SECRET'])) {
+            $this->markTestSkipped("Not all pusher environment variables (PUSHER_APP_ID, PUSHER_KEY, PUSHER_SECRET) set.");
+        }
+    }
+    
     public function testConstructor()
     {
-        $pusher = new Pusher('app_id', 'key', 'secret');
-        $pusher['channel']->trigger('wtf');
+        $pusher = new Pusher($_SERVER['PUSHER_APP_ID'], $_SERVER['PUSHER_KEY'], $_SERVER['PUSHER_SECRET']);
+        $pusher['my_channel']->trigger('foo');
     }
 }
