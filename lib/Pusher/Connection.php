@@ -47,7 +47,7 @@ class Connection
             $query .= '&'.http_build_query(array('socket_id' => $socketId));
         }
         
-        $signature = hash_hmac('sha256', "POST\n$path\n$query", $this->options['secret']);
+        $signature = $this->sign("POST\n$path\n$query");
         $query .= '&'.http_build_query(array('auth_signature' => $signature));
         
         $request = new Request(Request::METHOD_POST, $path.'?'.$query, $this->options['host']);
@@ -64,9 +64,14 @@ class Connection
         }
     }
     
-    public function getAuthenticationToken()
+    public function sign($message)
     {
-        return new Token($this->options['key'], $this->options['secret']);
+        return hash_hmac('sha256', $message, $this->options['secret']);
+    }
+    
+    public function getKey()
+    {
+        return $this->options['key'];
     }
     
     private function buildPath($channel)

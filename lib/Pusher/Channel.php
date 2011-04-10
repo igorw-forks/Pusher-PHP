@@ -11,8 +11,6 @@
 
 namespace Pusher;
 
-use Pusher\Signature\Token;
-
 /**
  * Pusher channel
  */
@@ -35,10 +33,8 @@ class Channel
     public function authenticationString($socketId, $customString = null)
     {
         $stringToSign = $socketId.':'.$this->name . ($customString ? ':'.$customString : '');
-        $token = $this->connection->getAuthenticationToken();
-        $signature = hash_hmac('sha256', $stringToSign, $token->secret);
-        
-        return $token->key.':'.$signature;
+        $signature = $this->connection->sign($stringToSign);
+        return $this->connection->getKey().':'.$signature;
     }
     
     public function authenticate($socketId, $customData = null)
