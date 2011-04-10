@@ -27,7 +27,7 @@ class ConnectionException extends \RuntimeException
         $this->request = $request;
         $this->response = $response;
         
-        $message = sprintf("Request to %s failed with HTTP status code '%s' and message '%s'.", $this->options['host'], $response->getStatusCode(), $response->getContent());
+        $message = sprintf("Pusher API call failed with HTTP status code '%s' and message '%s'.", $response->getStatusCode(), $response->getContent());
         parent::__construct($message);
     }
     
