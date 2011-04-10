@@ -60,7 +60,7 @@ class Connection
         $client->send($request, $response);
         
         if ($response->getStatusCode() != 202) {
-            throw new \RuntimeException(sprintf("Request to %s failed with HTTP status code '%s' and message '%s'.", $this->options['host'], $response->getStatusCode(), $response->getContent()));
+            throw new ConnectionException($request, $response);
         }
     }
     

@@ -19,13 +19,14 @@ class Pusher implements \ArrayAccess
     private $channels = array();
     private $connection;
     
-    public function __construct($appId, $key, $secret)
+    public function __construct($appId, $key, $secret, $options = array())
     {
-        $this->connection = new Connection(array(
+        $options = array_merge($options, array(
             'app_id'    => $appId,
             'key'       => $key,
             'secret'    => $secret,
         ));
+        $this->connection = new Connection($options);
     }
     
     public function offsetGet($name)
@@ -39,16 +40,21 @@ class Pusher implements \ArrayAccess
     
     public function offsetSet($name, $value)
     {
-        throw new \RuntimeException("Illegal use of array-syntax on Pusher. You may only use it for accessing channels.");
+        $this->throwBadMethodCallException();
     }
     
     public function offsetExists($name)
     {
-        throw new \RuntimeException("Illegal use of array-syntax on Pusher. You may only use it for accessing channels.");
+        $this->throwBadMethodCallException();
     }
     
     public function offsetUnset($name)
     {
-        throw new \RuntimeException("Illegal use of array-syntax on Pusher. You may only use it for accessing channels.");
+        $this->throwBadMethodCallException();
+    }
+    
+    private function throwBadMethodCallException()
+    {
+        throw new \BadMethodCallException("Illegal use of array-syntax on Pusher. You may only use it for accessing channels.");
     }
 }

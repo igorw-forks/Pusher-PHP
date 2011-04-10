@@ -20,16 +20,46 @@ use Pusher\Pusher;
  */
 class PusherTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    /** @test */
+    public function shouldReturnChannelOnChannelAccess()
     {
-        if (!isset($_SERVER['PUSHER_APP_ID']) || !isset($_SERVER['PUSHER_KEY']) || !isset($_SERVER['PUSHER_SECRET'])) {
-            $this->markTestSkipped("Not all pusher environment variables (PUSHER_APP_ID, PUSHER_KEY, PUSHER_SECRET) set.");
-        }
+        $pusher = $this->createStubPusher();
+        $this->assertInstanceOf('Pusher\Channel', $pusher['foo_channel']);
     }
     
-    public function testConstructor()
+    /**
+     * @test
+     * @expectedException BadMethodCallException
+     */
+    public function shouldThrowExceptionOnArraySet()
     {
-        $pusher = new Pusher($_SERVER['PUSHER_APP_ID'], $_SERVER['PUSHER_KEY'], $_SERVER['PUSHER_SECRET']);
-        $pusher['my_channel']->trigger('foo');
+        $pusher = $this->createStubPusher();
+        $pusher['foo_channel'] = 'bar';
+    }
+    
+    /**
+     * @test
+     * @expectedException BadMethodCallException
+     */
+    public function shouldThrowExceptionOnArrayIsset()
+    {
+        $pusher = $this->createStubPusher();
+        isset($pusher['foo_channel']);
+    }
+    
+    /**
+     * @test
+     * @expectedException BadMethodCallException
+     */
+    public function shouldThrowExceptionOnArrayUnset()
+    {
+        $pusher = $this->createStubPusher();
+        unset($pusher['foo_channel']);
+    }
+    
+    private function createStubPusher()
+    {
+        $pusher = new Pusher('20', '12345678900000001', '12345678900000001');
+        return $pusher;
     }
 }
