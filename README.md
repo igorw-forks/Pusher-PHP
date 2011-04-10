@@ -15,7 +15,7 @@ Arrays are automatically converted to JSON format:
     $array['name'] = 'joe';
     $array['message_count'] = 23;
 
-    $pusher->trigger('my_channel', 'my_event', $array);
+    $pusher['my_channel']->trigger('my_event', $array);
 
 The output of this will be:
 
