@@ -64,6 +64,11 @@ class Connection
         }
     }
     
+    public function getAuthenticationToken()
+    {
+        return new Token($this->options['key'], $this->options['secret']);
+    }
+    
     private function buildPath($channel)
     {
         return sprintf('/apps/%s/channels/%s/events',

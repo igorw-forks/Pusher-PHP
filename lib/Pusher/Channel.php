@@ -11,6 +11,8 @@
 
 namespace Pusher;
 
+use Pusher\Signature\Token;
+
 /**
  * Pusher channel
  */
@@ -28,5 +30,24 @@ class Channel
     public function trigger($eventName, $data = null, $socketId = null)
     {
         $this->connection->trigger($this->name, $eventName, $data, $socketId);
+    }
+    
+    public function authenticationString($socketId, $customString = null)
+    {
+        $stringToSign = $socketId.':'.$this->name . ($customString ? ':'.$customString : '');
+        $token = $this->connection->getAuthenticationToken();
+        $signature = hash_hmac('sha256', $stringToSign, $token->secret);
+        
+        return $token->key.':'.$signature;
+    }
+    
+    public function authenticate($socketId, $customData = null)
+    {
+        $customData = json_encode($customData);
+        $auth = $this->authenticationString($socketId, $customData);
+        return array(
+            'auth'          => $auth,
+            'channel_data'  => $custom_data,
+        );
     }
 }
