@@ -11,7 +11,7 @@
 
 namespace Pusher;
 
-use Buzz\Client\Curl as BuzzClient;
+use Buzz\Client\FileGetContents as BuzzClient;
 use Buzz\Message\Request;
 use Buzz\Message\Response;
 
