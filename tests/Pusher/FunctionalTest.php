@@ -31,7 +31,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
     public function shouldTriggerEventSuccessfully()
     {
         $pusher = $this->createRealPusher();
-        $pusher['foo_channel']->trigger('bar_event');
+        $pusher['foo_channel']->trigger('bar_event', 'pushed data');
     }
     
     private function createRealPusher()
